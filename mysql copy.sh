@@ -45,7 +45,7 @@ VALIDATE $? "Enabled MySQL Server"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started MySQL Server"
 
-mysql -h mysql.mydevops.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE  
+mysql -h mysql.mydevops.online -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE  
 
 if [ $? -ne 0 ]
 then
