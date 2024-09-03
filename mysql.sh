@@ -46,13 +46,14 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started MySQL Server"
 
 mysql -h mysql.mydevops.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE  
+
 if [ $? -ne 0 ]
 then
     echo "Mysql root password is not setup, setting now" &>>$LOG_FILE
     mysql_secure_installation --set-root-pass ExpenseApp@1
     VALIDATE $? "setting up root password"
 else 
-    echo  -e "Mysql root password is already setup... $Y SKIPPING $N" | tee &>>$LOG_FILE
+    echo  -e "Mysql root password is already setup... $Y SKIPPING $N" | tee -a $LOG_FILE
 fi    
 
 
